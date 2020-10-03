@@ -1,0 +1,89 @@
+:root {
+  --main-color: #2A5885;
+  --main-bg-color: #EDEEF0;
+  --main-sel-bg-color: #DCE1E6;
+  --title-color: var(--main-bg-color);
+  --title-bg-color: #4A76A8;
+  --menu-content-bg-color: #F0F0FD;
+}
+
+body {
+  background-color: var(--main-bg-color);
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  margin: 0;
+}
+
+table {
+  width: 100%;
+  height: 100%;
+}
+
+iframe {
+  background-color: white;
+  width:100%;
+  height:100%
+}
+
+.title {
+  height: 32pt;
+  color: var(--title-color);
+  background-color: var(--title-bg-color);
+}
+
+.menu {
+  display: inline-block;
+  position: relative;
+}
+
+.menu-category {
+  color: var(--main-color);
+  border: none;
+  border-radius: 10px;
+  min-width: 150px;
+  margin-top: 5px;
+  padding: 4px;
+  text-decoration: none;
+}
+
+.menu-category:hover {
+  color: blue;
+  background-color: var(--main-sel-bg-color);
+}
+
+.menu-content {
+  display: none;
+  margin: 0;
+  padding: 0;
+  top: 5px;
+  left: 100%;
+  padding: 2px;
+  position: absolute;
+  background-color: var(--menu-content-bg-color);
+  min-width: 150px;
+  list-style-type: none;
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+}
+
+.menu-item {
+  display: block;
+  color: var(--main-color);
+  padding: 3px;
+}
+
+.menu-item:hover {
+  color: blue;
+  background-color: var(--main-sel-bg-color);
+}
+
+.menu:hover .menu-content {
+  display: block;
+}
