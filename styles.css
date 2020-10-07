@@ -1,4 +1,7 @@
+@charset "utf-8";
+
 :root {
+  /* Константы */
   --main-color: #2A5885;
   --main-bg-color: #EDEEF0;
   --main-sel-bg-color: #DCE1E6;
@@ -8,56 +11,76 @@
   --footer-height: 32px;
 }
 
+
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
 html {
   height: 100%; /* Растягиваем документ на всю высоту окна */
 }
 
 body {
-  background-color: var(--main-bg-color);
-  padding: 0;
-  margin: 0;
   min-height: 100%; /* Растягиваем body по высоте html */
+  background-color: var(--main-bg-color);
 }
 
 a {
   text-decoration: none;
 }
 
-h1 {
-  margin: 0;
-}
 
-table {
+
+/* Основной экран */ 
+
+table.main {
   width: 100%;
   height: calc(100vh - 2em);
 }
 
-iframe {
-  background-color: white;
-  width:100%;
-  height:100%;
-  box-sizing: border-box;
-}
-
-.title {
+table.main tr th {
   height: 32pt;
   color: var(--title-color);
   background-color: var(--title-bg-color);
 }
+
+
+iframe.main {
+  box-sizing: border-box;
+  width:100%;
+  height:100%;
+
+  background-color: white;
+}
+
+
+.footer {
+  width: 100%;
+  color: #999;
+  text-align: center;
+}
+
+
+
+/* Меню */
 
 .menu {
   display: inline-block;
   position: relative;
 }
 
+
 .menu-category {
-  color: var(--main-color);
-  border: none;
-  border-radius: 10px;
-  min-width: 150px;
   margin-top: 5px;
   padding: 4px;
-  text-decoration: none;
+  min-width: 150px;
+
+  color: var(--main-color);
+
+  border: none;
+  border-radius: 10px;
 }
 
 .menu-category:hover {
@@ -65,37 +88,39 @@ iframe {
   background-color: var(--main-sel-bg-color);
 }
 
+
 .menu-content {
   display: none;
   box-sizing: border-box;
-  top: 5px;
-  left: 100%;
-  padding: 2px;
+
   position: absolute;
-  background-color: var(--menu-content-bg-color);
+  left: 100%;
+  top: 5px;
+  padding: 2px;
   min-width: 150px;
+  
+  background-color: var(--menu-content-bg-color);
   list-style-type: none;
+  
   border: 1px solid var(--main-color);
   border-radius: 5px;
-}
-
-.menu-item {
-  display: block;
-  color: var(--main-color);
-  padding: 3px;
-}
-
-.menu-item:hover {
-  color: blue;
-  background-color: var(--main-sel-bg-color);
 }
 
 .menu:hover .menu-content {
   display: block;
 }
 
-.footer {
-  width: 100%;
-  color: #999;
-  text-align: center;
+
+.menu-item {
+  display: block;
+  color: var(--main-color);
+}
+
+.menu-content .menu-item {
+  padding: 3px;
+}
+
+.menu-item:hover {
+  color: blue;
+  background-color: var(--main-sel-bg-color);
 }
