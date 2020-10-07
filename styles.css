@@ -5,12 +5,18 @@
   --title-color: var(--main-bg-color);
   --title-bg-color: #4A76A8;
   --menu-content-bg-color: #F0F0FD;
+  --footer-height: 32px;
+}
+
+html {
+  height: 100%; /* Растягиваем документ на всю высоту окна */
 }
 
 body {
   background-color: var(--main-bg-color);
   padding: 0;
   margin: 0;
+  min-height: 100%; /* Растягиваем body по высоте html */
 }
 
 a {
@@ -23,13 +29,14 @@ h1 {
 
 table {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 2em);
 }
 
 iframe {
   background-color: white;
   width:100%;
-  height:100%
+  height:100%;
+  box-sizing: border-box;
 }
 
 .title {
@@ -60,8 +67,7 @@ iframe {
 
 .menu-content {
   display: none;
-  margin: 0;
-  padding: 0;
+  box-sizing: border-box;
   top: 5px;
   left: 100%;
   padding: 2px;
@@ -86,4 +92,10 @@ iframe {
 
 .menu:hover .menu-content {
   display: block;
+}
+
+.footer {
+  width: 100%;
+  color: #999;
+  text-align: center;
 }
