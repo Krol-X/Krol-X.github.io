@@ -1,0 +1,42 @@
+@charset "utf-8";
+/******************************\
+|            Спойлер           |
+\******************************/
+/* https://k-94.ru/p/css-spoiler */
+
+.spoiler {
+  margin-top: 5px;
+}
+
+.spoiler > input + label:after {
+  content: "+";
+  float: right;
+  font-family: monospace;
+  font-weight: bold;
+}
+.spoiler > input:checked + label:after {
+  content: "-";
+}
+
+.spoiler > input { display:none; }
+.spoiler > input + label {
+  font-weight: bold;
+}
+.spoiler > input + label, .spoiler > .spoiler-body {
+  display: block;
+  width: 100%;
+  padding: 5px 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--bgcolor-secondary);
+  border: 1px solid var(--color-primary);
+}
+
+.spoiler > input + label + .spoiler-body { display:none; }
+.spoiler > input:checked + label + .spoiler-body { display: block; }
+.spoiler > .spoiler-body {
+  background: #FFF;
+  border: 1px solid var(--color-primary);
+  border-top: none;
+  box-shadow: 2px 3px 3px rgba(0, 0, 0, .1);
+}
