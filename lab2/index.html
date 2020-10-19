@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Лабораторная работа №2</title>
+    <link rel="stylesheet" type="text/css" href="../elements/style.css">
+    <style type="text/css">
+      form {
+        border: 1px solid black;
+        width: fit-content;
+        padding: 10px;
+        text-align: center;
+      }
+      .control {
+        margin-top: 5px;
+        font: 12pt/10pt monospace;
+      }
+      .control input {
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <br>
+    <p><b>
+      Примечание. Формат записи точек: "x;y".
+    </b></p><br>
+
+    <!-- 1 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb1"><label for="lb1">
+        Составить сценарий, в котором вычисляется площадь круга по заданному радиусу.
+      </label>
+      <div class="spoiler-body">
+        <script type="text/javascript">
+          let r = 8;
+          document.write("Площадь круга с радиусом ", r, " равна ", 2*Math.PI*r, ".<br>")
+        </script>
+      </div>
+    </div>
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb2"><label for="lb2">
+        Составить сценарий, вычисляющий гипотенузу по заданным катетам.
+      </label>
+      <div class="spoiler-body">
+        <script type="text/javascript">
+          let a = 1, b = 1;
+          document.write("Катеты: ", a, ", ", b, ".<br>");
+          document.write("Гипотенуза: ", Math.sqrt(a*a+b*b), ".<br>");
+        </script>
+      </div>
+    </div>
+
+    <!-- 2 -->
+
+    <script type="text/javascript">
+      var XY_REGULAR = /\s*(\d+)\s*;\s*(\d+)\s*/;
+
+      // Длинна вектора
+      function vector_len(a, b) {
+        return Math.sqrt( Math.pow(a[0]-b[0], 2) + Math.pow(a[1]-b[1], 2) )
+      }
+
+      // Существует ли треугольник с заданными длиннами сторон?
+      function tri_exist(a, b, c) {
+        return (a+b > c) && (a+c > b) && (b+c > a)
+      }
+    </script>
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb3"><label for="lb3">
+        На плоскости заданы координаты трех точек. Напишите сценарий, который вычисляет площадь
+        треугольника (использовать событие Focus).
+      </label>
+        <div class="spoiler-body">
+          <form name="form1">
+            <b>Площадь треугольника</b><br>
+            <div class="control">
+              a<input type="text" size="15" name="in"><br>
+              b<input type="text" size="15" name="in"><br>
+              c<input type="text" size="15" name="in"><br>
+              <hr>
+              S<input type="text" size="15" name="out" readonly>
+            </div>
+          </form>
+
+          <script type="text/javascript">
+          function on_focus(e) {
+            let i, side = [];
+            for (i = 0; i < form1.in.length; i++) {
+              let xy = XY_REGULAR.exec(form1.in[i].value);
+              if (!xy) {
+                form1.out.value = "Incorrect text";
+                return
+              }
+              side.push([xy[1], xy[2]]);
+            }
+            let a = vector_len(side[0], side[1]),
+                b = vector_len(side[1], side[2]),
+                c = vector_len(side[2], side[0]);
+            console.log(a, b, c);
+            if (!tri_exist(a, b, c)) {
+              form1.out.value = "Not trinagle!";
+              return
+            }
+            let p = (a + b + c)/2
+            form1.out.value = Math.sqrt(p*(p - a)*(p - b)*(p - c));
+          }
+          // Задание обработчика события
+          for (var i = 0; i < form1.in.length; i++) {
+            form1.in[i].addEventListener("focus", on_focus);
+          }
+          form1.out.addEventListener("focus", on_focus);
+        </script>
+      </div>
+    </div>
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb4"><label for="lb4">
+        ...
+      </label>
+      <div class="spoiler-body">
+
+      </div>
+    </div>
+  </body>
+</html>
