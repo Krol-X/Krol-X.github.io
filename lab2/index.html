@@ -7,17 +7,21 @@
     <link rel="stylesheet" type="text/css" href="../elements/style.css">
     <style type="text/css">
       form {
-        border: 1px solid black;
+        border: 2px solid black;
         width: fit-content;
         padding: 10px;
         text-align: center;
       }
       .control {
+        text-align: right;
         margin-top: 5px;
         font: 12pt/10pt monospace;
       }
       .control input {
         margin-left: 5px;
+      }
+      .todo > label {
+        color: DimGray;
       }
     </style>
   </head>
@@ -27,19 +31,23 @@
       Примечание. Формат записи точек: "x;y".
     </b></p><br>
 
+
     <!-- 1 -->
 
     <div class="spoiler">
       <input type="checkbox" id="lb1"><label for="lb1">
-        Составить сценарий, в котором вычисляется площадь круга по заданному радиусу.
+        Составить сценарий, в котором вычисляется площадь круга по
+        заданному радиусу.
       </label>
       <div class="spoiler-body">
         <script type="text/javascript">
           let r = 8;
-          document.write("Площадь круга с радиусом ", r, " равна ", 2*Math.PI*r, ".<br>")
+          document.write("Площадь круга с радиусом ", r, " равна ",
+                         2*Math.PI*r, ".<br>")
         </script>
       </div>
     </div>
+
 
     <div class="spoiler">
       <input type="checkbox" id="lb2"><label for="lb2">
@@ -54,10 +62,12 @@
       </div>
     </div>
 
+
     <!-- 2 -->
 
     <script type="text/javascript">
-      var XY_REGULAR = /\s*(\d+)\s*;\s*(\d+)\s*/;
+      var DATA_ERR   = "Incorrect data";
+      var XY_REGULAR = /\s*(-?\d+)\s*;\s*(-?\d+)\s*/;
 
       // Длинна вектора
       function vector_len(a, b) {
@@ -70,10 +80,11 @@
       }
     </script>
 
+
     <div class="spoiler">
       <input type="checkbox" id="lb3"><label for="lb3">
-        На плоскости заданы координаты трех точек. Напишите сценарий, который вычисляет площадь
-        треугольника (использовать событие Focus).
+        На плоскости заданы координаты трех точек. Напишите сценарий, который
+        вычисляет площадь треугольника (использовать событие Focus).
       </label>
         <div class="spoiler-body">
           <form name="form1">
@@ -88,43 +99,230 @@
           </form>
 
           <script type="text/javascript">
-          function on_focus(e) {
-            let i, side = [];
-            for (i = 0; i < form1.in.length; i++) {
-              let xy = XY_REGULAR.exec(form1.in[i].value);
-              if (!xy) {
-                form1.out.value = "Incorrect text";
+            function on_focus(e) {
+              let i, side = [];
+              for (i = 0; i < form1.in.length; i++) {
+                let xy = XY_REGULAR.exec(form1.in[i].value);
+                if (!xy) {
+                  form1.out.value = DATA_ERR;
+                  return
+                }
+                side.push([xy[1], xy[2]]);
+              }
+              let a = vector_len(side[0], side[1]),
+                  b = vector_len(side[1], side[2]),
+                  c = vector_len(side[2], side[0]);
+              if (!tri_exist(a, b, c)) {
+                form1.out.value = "Not trinagle!";
                 return
               }
-              side.push([xy[1], xy[2]]);
+              let p = (a + b + c)/2
+              form1.out.value = Math.sqrt(p*(p - a)*(p - b)*(p - c));
             }
-            let a = vector_len(side[0], side[1]),
-                b = vector_len(side[1], side[2]),
-                c = vector_len(side[2], side[0]);
-            console.log(a, b, c);
-            if (!tri_exist(a, b, c)) {
-              form1.out.value = "Not trinagle!";
-              return
+            // Задание обработчика события
+            for (var i = 0; i < form1.in.length; i++) {
+              form1.in[i].addEventListener("focus", on_focus);
             }
-            let p = (a + b + c)/2
-            form1.out.value = Math.sqrt(p*(p - a)*(p - b)*(p - c));
+            form1.out.addEventListener("focus", on_focus);
+          </script>
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb4"><label for="lb4">
+        Напишите сценарий, который для точки, заданной координатами на
+        плоскости, определяет расстояние до начала координат
+        (использовать событие Select).
+      </label>
+      <div class="spoiler-body">
+        <form name="form2">
+          <b>Расстояние от точки до начала координат</b><br>
+          <div class="control">
+            xy<input type="text" size="15" name="in"><br>
+            <hr>
+            D <input type="text" size="15" name="out" readonly>
+          </div>
+        </form>
+
+        <script type="text/javascript">
+          function on_select(e) {
+            let xy = XY_REGULAR.exec(form2.in.value);
+            form2.out.value = (xy)? vector_len( [0, 0], [xy[1], xy[2]] ): "";
           }
           // Задание обработчика события
-          for (var i = 0; i < form1.in.length; i++) {
-            form1.in[i].addEventListener("focus", on_focus);
-          }
-          form1.out.addEventListener("focus", on_focus);
+          form2.in.addEventListener("select", on_select);
+          form2.out.addEventListener("select", on_select);
         </script>
       </div>
     </div>
 
-    <div class="spoiler">
-      <input type="checkbox" id="lb4"><label for="lb4">
-        ...
-      </label>
-      <div class="spoiler-body">
 
+    <div class="spoiler">
+      <input type="checkbox" id="lb5"><label for="lb5">
+        Напишите сценарий, который обменивает местами значения двух
+        введенных переменных (использовать событие Blur).
+      </label>
+
+      <div class="spoiler-body">
+        <form name="form3">
+          <b>Меняет значение при событии onBlur</b>
+          <div class="control">
+            a<input type="text" size="15" name="x" onblur="on_blur()"><br>
+            b<input type="text" size="15" name="x" onblur="on_blur()">
+          </div>
+          <script type="text/javascript">
+            function on_blur() {
+              [ form3.x[0].value, form3.x[1].value ] = [
+                form3.x[1].value, form3.x[0].value
+              ];
+            }
+          </script>
+        </form>
       </div>
     </div>
+
+
+    <!-- 3 -->
+
+    <div class="spoiler todo">
+      <input type="checkbox" id="lb6"><label for="lb6">
+        Вводится последовательность из пяти чисел. Напишите сценарий,
+        в котором определяется число максимальных элементов.
+      </label>
+      <div class="spoiler-body">
+        Не реализовано &ndash; не понятно задание (по-видимому опечатка).
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb7"><label for="lb7">
+        Точка на плоскости задается своими координатами. Определите,
+        какой из четвертей прямоугольной системы координат
+        принадлежит заданная точка.
+      </label>
+
+      <div class="spoiler-body">
+        <form name="form4">
+          <div class="control">
+            xy<input type="text" size="10" name="in"><br>
+            <hr>
+            Четверть<input type="text" size="10" name="out" readonly>
+          </div>
+        </form>
+
+        <script type="text/javascript">
+          function on_change(e) {
+            let xy = XY_REGULAR.exec(form4.in.value);
+            form4.out.value = (xy)? (xy[2]>0? 0: 2) +
+                                    (xy[1]>0? 0: 1) + 1:
+                              DATA_ERR;
+          }
+          // Задание обработчика события
+          form4.in.addEventListener("keyup", on_change);
+        </script>
+      </div>
+    </div>
+
+
+    <!-- 4 -->
+
+    <div class="spoiler">
+      <style type="text/css">
+        .img-select {
+          display: inline-block;
+          padding-top: 5px;
+          padding-bottom: 10px;
+        }
+        .img-select img, #img-result {
+          margin-right: 5px;
+          border: 1px solid var(--color-primary);
+        }
+        .img-select img[value="selected"] { border-width: 2px; }
+        .img-select img:hover { border-color: blue; }
+        #img-result { border-color: red; }
+      </style>
+
+      <input type="checkbox" id="lb8"><label for="lb8">
+        Написать сценарий выбора из трех изображений одного, которое
+        вставляется ниже этих трех.
+      </label>
+      <div class="spoiler-body">
+        <div class="img-select">
+          <img src="images/1.png">
+          <img src="images/2.png">
+          <img src="images/3.png">
+        </div>
+        <div><img id="img-result" src="" hidden></div>
+      </div>
+
+      <script type="text/javascript">
+        var last_img_click = null;
+        function on_imgclick(e) {
+          let dest = document.getElementById("img-result"),
+              source = e.srcElement;
+          if (last_img_click != null)
+            last_img_click.removeAttribute("value");
+          if (dest.src != source.src) {
+            source.setAttribute("value", 'selected');
+            dest.src = source.src;
+            dest.removeAttribute("hidden");
+          } else {
+            dest.src = "";
+            dest.setAttribute("hidden", "");
+          }
+          last_img_click = source;
+        }
+
+        let elem = document.querySelectorAll(".img-select > img");
+        for (let i = 0; i < elem.length; i++) {
+          elem[i].addEventListener("click", on_imgclick);
+        }
+      </script>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb9"><label for="lb9">
+        Написать сценарий картинки с "эффектом приближения", т.е. увеличения размеров как реакция на попадание курсора мыши в поле рисунка (использовать свойства width и height)
+      </label>
+
+      <div class="spoiler-body">
+        <img id="img-zommed" src="images/0.png">
+
+        <script type="text/javascript">
+          function on_mouse(e) {
+            const k = 1.5;
+            let source = e.srcElement;
+            var img = new Image();
+            img.src = source.src;
+            if (e.type == "mouseover") {
+              source.width  = img.width*k;
+              source.height = img.height*k;
+            } else if (e.type == "mouseout") {
+              source.width  = img.width;
+              source.height = img.height;
+            }
+          }
+
+          elem = document.getElementById("img-zommed");
+          elem.addEventListener("mouseover", on_mouse);
+          elem.addEventListener("mouseout", on_mouse);
+        </script>
+      </div>
+    </div>
+
+
+    <div class="spoiler todo">
+      <input type="checkbox" id="lb10"><label for="lb10">
+        Написать сценарий графического горизонтального меню с появляющейся
+        стрелкой над пунктом, у которого находится курсор.
+      </label>
+      <div class="spoiler-body">
+        Пока не реализовано.
+      </div>
+    </div>
+
   </body>
 </html>
