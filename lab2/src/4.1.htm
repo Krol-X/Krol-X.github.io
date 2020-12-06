@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'
+  'http://www.w3.org/TR/html4/loose.dtd'>
+<html>
+  <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <link rel='stylesheet' type='text/css' href='style.css'>
+  </head>
+  <body>
+    <script type='text/javascript' src='script.js'></script>
+<!-- Написать сценарий выбора из трех изображений одного, которое вставляется ниже этих трех. -->
+
+        <style type='text/css'>
+          .img-select4_1 {
+            display: inline-block;
+            padding-top: 5px;
+            padding-bottom: 10px;
+          }
+          .img-select4_1 img, #img-result4_1 {
+            margin-right: 5px;
+            border: 1px solid black;
+          }
+          .img-select4_1 img[value='selected'] { border-width: 2px; }
+          .img-select4_1 img:hover { border-color: blue; }
+          #img-result4_1 { border-color: red; }
+        </style>
+
+        <div class='img-select4_1'>
+          <img src='images/chess-blue.png'>
+          <img src='images/chess-green.png'>
+          <img src='images/chess-red.png'>
+        </div>
+        <div><img id='img-result4_1' hidden></div>
+
+        <script type='text/javascript'>
+          function task4_1() {
+            var last_img_click = null;
+
+            let on_click = (e) => {
+              let dest = $$('#img-result4_1'),
+                  source = e.srcElement;
+              if (last_img_click != null)
+                last_img_click.removeAttribute('value');
+              if (dest.src != source.src) {
+                source.setAttribute('value', 'selected');
+                dest.src = source.src;
+                dest.removeAttribute('hidden');
+              } else {
+                dest.src = '';
+                dest.setAttribute('hidden', '');
+              }
+              last_img_click = source;
+            }
+
+            for (let elem of $('.img-select4_1 > img')) {
+              elem.addEventListener('click', on_click);
+            }
+          } task4_1();
+        </script>

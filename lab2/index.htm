@@ -1,0 +1,902 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+
+<!-- 1 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb11"><label for="lb11">
+        Составить сценарий, в котором вычисляется площадь круга по заданному радиусу.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task1_1() {
+            let r = 8;
+            document.write("Площадь круга с радиусом ", r, " равна ",
+                           2*Math.PI*r, ".<br>")
+          } task1_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb12"><label for="lb12">
+        Составить сценарий, вычисляющий гипотенузу по заданным катетам.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task1_2() {
+            let a = 1, b = 1;
+            document.write("Катеты: ", a, ", ", b, ".<br>");
+            document.write("Гипотенуза: ", Math.sqrt(a*a+b*b), ".<br>");
+          } task1_2();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 2 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb21"><label for="lb21">
+        На плоскости заданы координаты трех точек. Напишите сценарий, который вычисляет площадь треугольника (использовать событие Focus).
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form2_1">
+          <table>
+            <tr>
+              <th><label for="a2_1">A:</label></th>
+              <td><input type="text" id="a2_1" name></td>
+            </tr>
+            <tr>
+              <th><label for="b2_1">B:</label></th>
+              <td><input type="text" id="b2_1" name></td>
+            </tr>
+            <tr>
+              <th><label for="c2_1">C:</label></th>
+              <td><input type="text" id="c2_1" name></td>
+            </tr>
+            <tr>
+              <th><label for="s2_1">S:</label></th>
+              <td><input type="text" id="s2_1" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task2_1() {
+            let on_focus = (e) => {
+              let i, side = [];
+              let src = $('#form2_1 input[name]');
+              let dst = $$('#form2_1 input[readonly]');
+              for (let elem of src) {
+                let xy = XY_REGULAR.exec(elem.value);
+                if (!xy) {
+                  dst.value = ERR_DATA;
+                  return
+                }
+                side.push([xy[1], xy[2]]);
+              }
+              let a = vector_len(side[0], side[1]),
+                  b = vector_len(side[1], side[2]),
+                  c = vector_len(side[2], side[0]);
+              if (!tri_exist(a, b, c)) {
+                dst.value = "Not trinagle!";
+                return
+              }
+              let p = (a + b + c)/2
+              dst.value = Math.sqrt(p*(p - a)*(p - b)*(p - c));
+            }
+
+            for (let elem of $('#form2_1 input')) {
+              elem.addEventListener("focus", on_focus);
+            }
+          } task2_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb22"><label for="lb22">
+        Напишите сценарий, который для точки, заданной координатами на плоскости, определяет расстояние до начала координат (использовать событие Select).
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form2_2">
+          <table>
+            <tr>
+              <th><label for="xy2_2">XY:</label></th>
+              <td><input type="text" id="xy2_2"></td>
+            </tr>
+            <tr>
+              <th><label for="D2_2">D:</label></th>
+              <td><input type="text" id="D2_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task2_2() {
+            let on_select = (e) => {
+              let src = $$("#form2_2 input"),
+                  dst = $$("#form2_2 input[readonly]");
+              let xy = XY_REGULAR.exec(src.value);
+              dst.value = (xy)? vector_len(
+                [0, 0], [xy[1], xy[2]]
+              ): "";
+            }
+
+            for (let elem of $('#form2_2 input')) {
+              elem.addEventListener("select", on_select);
+            }
+          } task2_2();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb23"><label for="lb23">
+        Напишите сценарий, который обменивает местами значения двух введенных переменных (использовать событие Blur).
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form2_3">
+          <table>
+            <tr>
+              <th><label for="a2_3">A:</label></th>
+              <td><input type="text" id="a2_3"></td>
+            </tr>
+            <tr>
+              <th><label for="b2_3">B:</label></th>
+              <td><input type="text" id="b2_3"></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task2_3() {
+            let on_blur = (e) => {
+              let elems = $("#form2_3 input");
+              [ elems[0].value, elems[1].value ] = [
+                elems[1].value, elems[0].value
+              ];
+            }
+
+            for (let elem of $('#form2_3 input')) {
+              elem.addEventListener("blur", on_blur);
+            }
+          } task2_3();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 3 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb31"><label for="lb31">
+        Вводится последовательность из пяти чисел. Напишите сценарий, в котором определяется число максимальных элементов.
+      </label>
+      <div class="spoiler-body">
+
+        Не реализовано &ndash; не понятно задание (по-видимому опечатка).
+
+        <script type="text/javascript">
+          function task3_1() {
+          } task3_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb32"><label for="lb32">
+        Точка на плоскости задается своими координатами. Определите, какой из четвертей прямоугольной системы координат принадлежит заданная точка.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form3_2">
+          <table>
+            <tr>
+              <th><label for="xy3_2">XY:</label></th>
+              <td><input type="text" id="xy3_2"></td>
+            </tr>
+            <tr>
+              <th><label for="r3_2">Четверть:</label></th>
+              <td><input type="text" id="r3_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task3_2() {
+            $$("#form3_2 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form3_2 input");
+                let dst = $$("#form3_2 input[readonly]");
+                let xy = XY_REGULAR.exec(src.value);
+                dst.value = (xy)? (xy[2]>0? 0: 2) +
+                                  (xy[1]>0? 0: 1) + 1: ERR_DATA;
+              }
+            )
+          } task3_2();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 4 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb41"><label for="lb41">
+        Написать сценарий выбора из трех изображений одного, которое вставляется ниже этих трех.
+      </label>
+      <div class="spoiler-body">
+
+        <style type='text/css'>
+          .img-select4_1 {
+            display: inline-block;
+            padding-top: 5px;
+            padding-bottom: 10px;
+          }
+          .img-select4_1 img, #img-result4_1 {
+            margin-right: 5px;
+            border: 1px solid black;
+          }
+          .img-select4_1 img[value='selected'] { border-width: 2px; }
+          .img-select4_1 img:hover { border-color: blue; }
+          #img-result4_1 { border-color: red; }
+        </style>
+
+        <div class='img-select4_1'>
+          <img src='images/chess-blue.png'>
+          <img src='images/chess-green.png'>
+          <img src='images/chess-red.png'>
+        </div>
+        <div><img id='img-result4_1' hidden></div>
+
+        <script type='text/javascript'>
+          function task4_1() {
+            var last_img_click = null;
+
+            let on_click = (e) => {
+              let dest = $$('#img-result4_1'),
+                  source = e.srcElement;
+              if (last_img_click != null)
+                last_img_click.removeAttribute('value');
+              if (dest.src != source.src) {
+                source.setAttribute('value', 'selected');
+                dest.src = source.src;
+                dest.removeAttribute('hidden');
+              } else {
+                dest.src = '';
+                dest.setAttribute('hidden', '');
+              }
+              last_img_click = source;
+            }
+
+            for (let elem of $('.img-select4_1 > img')) {
+              elem.addEventListener('click', on_click);
+            }
+          } task4_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb42"><label for="lb42">
+        Написать сценарий картинки с "эффектом приближения", т.е. увеличения размеров как реакция на попадание курсора мыши в поле рисунка (использовать свойства width и height).
+      </label>
+      <div class="spoiler-body">
+
+        <img id="img-zommed4_2" src="images/chess.png">
+
+        <script type="text/javascript">
+          function task4_2() {
+            let on_mouse = (e) => {
+              const k = 1.5;
+              let source = e.srcElement;
+              var img = new Image();
+              img.src = source.src;
+              if (e.type == "mouseover") {
+                source.width  = img.width*k;
+                source.height = img.height*k;
+              } else if (e.type == "mouseout") {
+                source.width  = img.width;
+                source.height = img.height;
+              }
+            }
+
+            let elem = $$("#img-zommed4_2");
+            elem.addEventListener("mouseover", on_mouse);
+            elem.addEventListener("mouseout", on_mouse);
+          } task4_2();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb43"><label for="lb43">
+        Написать сценарий графического горизонтального меню с появляющейся стрелкой над пунктом, у которого находится курсор.
+      </label>
+      <div class="spoiler-body">
+
+        <style type="text/css">
+          .menu4_3 {
+            display: inline-block;
+            padding: 1px;
+            margin: 5px;
+            border: 2px double black;
+            border-radius: 8px;
+          }
+          .menu4_3 > .item4_3 {
+            display: inline-block;
+            padding: 10px 20px 10px 20px;
+            position: relative;
+            min-width: 48px;
+            text-align: center;
+            border-radius: 8px;
+          }
+          .menu4_3 > .item4_3[value="selected"] {
+            background: #F8F8E8;
+          }
+          .menu4_3 > .item4_3[value="selected"]:after {
+            position: absolute; 
+            content: "\2039";
+            color: red;
+            font-size: 40px;
+            font-weight: bold;
+            right: 43px;
+            top: -20px;
+            transform: rotate(-90deg);
+          }
+        </style>
+
+        <div class="menu4_3">
+          <a class="item4_3" href="#">Первый</a>
+          <a class="item4_3" href="#">Второй</a>
+          <a class="item4_3" href="#">Третий</a>
+        </div>
+
+        <script type="text/javascript">
+          function task4_3() {
+            let on_mouse = (e) => {
+              let elem = e.srcElement;
+              if (e.type == "mouseover") {
+                elem.setAttribute('value', 'selected');
+              } else if (e.type == "mouseout") {
+                elem.removeAttribute('value');
+              }
+            }
+
+            for (let elem of $(".menu4_3 .item4_3")) {
+              elem.addEventListener("mouseover", on_mouse);
+              elem.addEventListener("mouseout", on_mouse);
+            }
+          } task4_3();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 5 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb51"><label for="lb51">
+        Напишите сценарий, который позволяет продемонстрировать изменения размеров и положения на странице горизонтальной линии.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task5_1() {
+          } task5_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb52"><label for="lb52">
+        Разработайте анкету, определяющую пол, возраст, семейное положение и т.п., человека.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task5_2() {
+          } task5_2();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 6 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb61"><label for="lb61">
+        Напишите сценарий обработки анкеты слушателя курсов. Пользователь может выбрать курс, его продолжительность, язык, на котором он готов работать с преподавателем, и форму отчетности. В зависимости от этих параметров определяется стоимость отдельного курса и стоимость всего обучения.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task6_1() {
+          } task6_1();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 7 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb71"><label for="lb71">
+        Напишите сценарий, который позволяет выбрать для таблицы и составляющих ее ячеек либо цвет фона, либо фоновое изображение, либо и то и другое. Предусмотрите возможность задания своего цвета фона для каждой ячейки.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task7_1() {
+          } task7_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb72"><label for="lb72">
+        Напишите сценарий, который позволяет посчитать стоимость предполагаемой покупки. Задается список продуктов, цена за единицу товара и количество экземпляров.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task7_2() {
+          } task7_2();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 8 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb81"><label for="lb81">
+        Создайте документ, разбивающий окно просмотра с помощью фреймов на две прямоугольные области: верхнюю и нижнюю. В верхней области поместите оглавление в виде списка, при выборе пунктов которого соответствующий раздел должен появляться в нижней части окна.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task8_1() {
+          } task8_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb82"><label for="lb82">
+        Создайте документ, разбивающий окно просмотра с помощью фреймов на две прямоугольные области: левую и правую. В левой области поместите оглавление, при выборе пунктов которого соответствующий пункту раздел должен появляться в правой части окна. Оглавление представьте с помощью графического вертикального меню.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task8_2() {
+          } task8_2();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 9 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb91"><label for="lb91">
+        Напишите программу, которая "переворачивает" заданное натуральное число.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form9_1">
+          <table>
+            <tr>
+              <th><label for="in9_1">Ввод:</label></th>
+              <td><input type="text" id="in9_1"></td>
+            </tr>
+            <tr>
+              <th><label for="out9_1">Результат:</label></th>
+              <td><input type="text" id="out9_1" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task9_1() {
+            $$("#form9_1 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form9_1 input"),
+                    dst = $$("#form9_1 input[readonly]");
+                let n = Number(src.value);
+                dst.value = Number.isInteger(n)?
+                  Number(("" + n).split("").reverse().join("")):
+                  ERR_DATA;
+              }
+            );
+          } task9_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb92"><label for="lb92">
+        Напишите сценарий, в котором определяется количество "счастливых" шестизначных автобусных билетов, т.е. таких, в номерах которых сумма первых трех цифр равна сумме трех последних.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task9_2() {
+          } task9_2();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb93"><label for="lb93">
+        Напишите программу, определяющую все делители заданного натурального числа.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task9_3() {
+          } task9_3();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 10 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb101"><label for="lb101">
+        Напишите сценарий, который по заданной дате определяет номер недели в году.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form10_1">
+          <table>
+            <tr>
+              <th><label for="in10_1">Дата:</label></th>
+              <td><input type="text" id="in10_1"></td>
+            </tr>
+            <tr>
+              <th><label for="out10_1">Результат:</label></th>
+              <td><input type="text" id="out10_1" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task10_1() {
+            // code in script.js
+
+            $$("#form10_1 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form10_1 input"),
+                    dst = $$("#form10_1 input[readonly]");
+                let date = new Date();
+                if (date.fromString(src.value)) {
+                  dst.value = date.getWeek();
+                } else {
+                  dst.value = ERR_DATA;
+                }
+              }
+            );
+          } task10_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb102"><label for="lb102">
+        Напишите сценарий, который по дате рождения человека определяет, под каким знаком зодиака родился человек.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form10_2">
+          <table>
+            <tr>
+              <th><label for="in10_2">Дата:</label></th>
+              <td><input type="text" id="in10_2"></td>
+            </tr>
+            <tr>
+              <th><label for="out10_2">Результат:</label></th>
+              <td><input type="text" id="out10_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task10_2() {
+            // code in script.js
+
+            $$("#form10_2 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form10_2 input"),
+                    dst = $$("#form10_2 input[readonly]");
+                let date = new Date();
+                if (date.fromString(src.value)) {
+                  dst.value = date.getZodiac();
+                } else {
+                  dst.value = ERR_DATA;
+                }
+              }
+            );
+          } task10_2();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb103"><label for="lb103">
+        В старояпонском календаре был принят 60-летний цикл, состоящий из пяти 12-летних подциклов. Подциклы обозначались названиями цвета: зеленый, красный, желтый, белый, черный. Внутри каждого подцикла годы носили названия животных: крысы, коровы, тигра, зайца, дракона, змеи, лошади, овцы, обезьяны, курицы, собаки и свиньи. Например, 1984 год (год зеленой крысы) был началом очередного цикла. Напишите сценарий, который по заданной дате определяет название года по старояпонскому календарю.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form10_3">
+          <table>
+            <tr>
+              <th><label for="in10_3">Дата:</label></th>
+              <td><input type="text" id="in10_3"></td>
+            </tr>
+            <tr>
+              <th><label for="out10_3">Результат:</label></th>
+              <td><input type="text" id="out10_3" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task10_3() {
+            function getYearName(year) {
+              if (year == "") return "";
+              if (!Number.isInteger) return ERR_DATA;
+              const color = [ "зеленый", "красный", "желтый", "белый", "черный" ],
+                    animal = [ "крысы",  "коровы",  "тигра",
+                               "зайца",  "дракона", "змеи",
+                               "лошади", "овцы",    "обезьяны",
+                               "курицы", "собаки",  "свиньи" ];
+              return color [(year-4 + color.length) % color.length] + " " +
+                     animal[(year-4 + animal.length) % animal.length]
+            }
+
+            $$("#form10_3 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form10_3 input"),
+                    dst = $$("#form10_3 input[readonly]");
+                dst.value = getYearName(src.value);
+              }
+            );
+          } task10_3();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 11 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb111"><label for="lb111">
+        Слова в заданном тексте разделяются пробелами. Напишите программу, которая определяет количество слов в тексте.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form11_1">
+          <table>
+            <tr>
+              <th><label for="in11_1">Ввод:</label></th>
+              <td><input type="text" id="in11_1"></td>
+            </tr>
+            <tr>
+              <th><label for="out11_1">Результат:</label></th>
+              <td><input type="text" id="out11_1" value="0" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task11_1() {
+            $$("#form11_1 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form11_1 input");
+                let dst = $$("#form11_1 input[readonly]");
+                let s = src.value.trim().split(/\s+/);
+                let i;
+                while ((i = s.indexOf("")) != -1) s.splice(i);
+                dst.value = (s == "")? 0: s.length;
+              }
+            )
+          } task11_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb112"><label for="lb112">
+        Напишите программу, в которой все слова А заменяются словом В, где А и В - заданные слова, возможно, различной длины.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form11_2">
+          <table>
+            <tr>
+              <th><label for="in11_2">Ввод:</label></th>
+              <td><input type="text" id="in11_2" name></td>
+            </tr>
+            <tr>
+              <th><label for="sub11_2">Подстрока:</label></th>
+              <td><input type="text" id="sub11_2" name></td>
+            </tr>
+            <tr>
+              <th><label for="rep11_2">Заменить на:</label></th>
+              <td><input type="text" id="rep11_2" name></td>
+            </tr>
+            <tr>
+              <th><label for="out11_2">Результат:</label></th>
+              <td><input type="text" id="out11_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task11_2() {
+            let handler = (e) => {
+              let src = $("#form11_2 input[name]"),
+                  dest = $$("#form11_2 input[readonly]");
+              let s  = src[0].value,
+                  ss = src[1].value,
+                  r  = src[2].value;
+              dest.value = s.replaceAll(ss, r);
+            }
+
+            for (let elem of $('#form11_2 input')) {
+              elem.addEventListener("keyup", handler);
+            }
+          } task11_2();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb113"><label for="lb113">
+        Напишите программу, которая "сжимает" заданный текст, т.е. заменяет все подряд идущие пробелы на один.
+      </label>
+      <div class="spoiler-body">
+
+        <form id="form11_3">
+          <table>
+            <tr>
+              <th><label for="in11_3">Ввод:</label></th>
+              <td><input type="text" id="in11_3"></td>
+            </tr>
+            <tr>
+              <th><label for="out11_3">Результат:</label></th>
+              <td><input type="text" id="out11_3" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task11_3() {
+            $$("#form11_3 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form11_3 input");
+                let dst = $$("#form11_3 input[readonly]");
+                dst.value = src.value.trim().split(/\s+/).join(" ");
+              }
+            )
+          } task11_3();
+        </script>
+
+      </div>
+    </div>
+
+
+
+<!-- 12 -->
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb121"><label for="lb121">
+        Создать простейший мультипликационный сюжет с использованием массива.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task12_1() {
+          } task12_1();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb122"><label for="lb122">
+        Задан одномерный массив вещественных чисел. Напишите сценарий, который определяет число положительных элементов массива.
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task12_2() {
+          } task12_2();
+        </script>
+
+      </div>
+    </div>
+
+
+    <div class="spoiler">
+      <input type="checkbox" id="lb123"><label for="lb123">
+        Задан одномерный массив вещественных чисел. Напишите сценарий, позволяющий найти максимальный элемент в массиве
+      </label>
+      <div class="spoiler-body">
+
+        <script type="text/javascript">
+          function task12_3() {
+          } task12_3();
+        </script>
+
+      </div>
+    </div>
+
+

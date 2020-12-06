@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- Слова в заданном тексте разделяются пробелами. Напишите программу, которая определяет количество слов в тексте. -->
+
+        <form id="form11_1">
+          <table>
+            <tr>
+              <th><label for="in11_1">Ввод:</label></th>
+              <td><input type="text" id="in11_1"></td>
+            </tr>
+            <tr>
+              <th><label for="out11_1">Результат:</label></th>
+              <td><input type="text" id="out11_1" value="0" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task11_1() {
+            $$("#form11_1 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form11_1 input");
+                let dst = $$("#form11_1 input[readonly]");
+                let s = src.value.trim().split(/\s+/);
+                let i;
+                while ((i = s.indexOf("")) != -1) s.splice(i);
+                dst.value = (s == "")? 0: s.length;
+              }
+            )
+          } task11_1();
+        </script>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- Напишите программу, в которой все слова А заменяются словом В, где А и В - заданные слова, возможно, различной длины. -->
+
+        <form id="form11_2">
+          <table>
+            <tr>
+              <th><label for="in11_2">Ввод:</label></th>
+              <td><input type="text" id="in11_2" name></td>
+            </tr>
+            <tr>
+              <th><label for="sub11_2">Подстрока:</label></th>
+              <td><input type="text" id="sub11_2" name></td>
+            </tr>
+            <tr>
+              <th><label for="rep11_2">Заменить на:</label></th>
+              <td><input type="text" id="rep11_2" name></td>
+            </tr>
+            <tr>
+              <th><label for="out11_2">Результат:</label></th>
+              <td><input type="text" id="out11_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task11_2() {
+            let handler = (e) => {
+              let src = $("#form11_2 input[name]"),
+                  dest = $$("#form11_2 input[readonly]");
+              let s  = src[0].value,
+                  ss = src[1].value,
+                  r  = src[2].value;
+              dest.value = s.replaceAll(ss, r);
+            }
+
+            for (let elem of $('#form11_2 input')) {
+              elem.addEventListener("keyup", handler);
+            }
+          } task11_2();
+        </script>

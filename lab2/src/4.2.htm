@@ -1,0 +1,34 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- Написать сценарий картинки с "эффектом приближения", т.е. увеличения размеров как реакция на попадание курсора мыши в поле рисунка (использовать свойства width и height). -->
+
+        <img id="img-zommed4_2" src="images/chess.png">
+
+        <script type="text/javascript">
+          function task4_2() {
+            let on_mouse = (e) => {
+              const k = 1.5;
+              let source = e.srcElement;
+              var img = new Image();
+              img.src = source.src;
+              if (e.type == "mouseover") {
+                source.width  = img.width*k;
+                source.height = img.height*k;
+              } else if (e.type == "mouseout") {
+                source.width  = img.width;
+                source.height = img.height;
+              }
+            }
+
+            let elem = $$("#img-zommed4_2");
+            elem.addEventListener("mouseover", on_mouse);
+            elem.addEventListener("mouseout", on_mouse);
+          } task4_2();
+        </script>

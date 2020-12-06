@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- На плоскости заданы координаты трех точек. Напишите сценарий, который вычисляет площадь треугольника (использовать событие Focus). -->
+
+        <form id="form2_1">
+          <table>
+            <tr>
+              <th><label for="a2_1">A:</label></th>
+              <td><input type="text" id="a2_1" name></td>
+            </tr>
+            <tr>
+              <th><label for="b2_1">B:</label></th>
+              <td><input type="text" id="b2_1" name></td>
+            </tr>
+            <tr>
+              <th><label for="c2_1">C:</label></th>
+              <td><input type="text" id="c2_1" name></td>
+            </tr>
+            <tr>
+              <th><label for="s2_1">S:</label></th>
+              <td><input type="text" id="s2_1" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task2_1() {
+            let on_focus = (e) => {
+              let i, side = [];
+              let src = $('#form2_1 input[name]');
+              let dst = $$('#form2_1 input[readonly]');
+              for (let elem of src) {
+                let xy = XY_REGULAR.exec(elem.value);
+                if (!xy) {
+                  dst.value = ERR_DATA;
+                  return
+                }
+                side.push([xy[1], xy[2]]);
+              }
+              let a = vector_len(side[0], side[1]),
+                  b = vector_len(side[1], side[2]),
+                  c = vector_len(side[2], side[0]);
+              if (!tri_exist(a, b, c)) {
+                dst.value = "Not trinagle!";
+                return
+              }
+              let p = (a + b + c)/2
+              dst.value = Math.sqrt(p*(p - a)*(p - b)*(p - c));
+            }
+
+            for (let elem of $('#form2_1 input')) {
+              elem.addEventListener("focus", on_focus);
+            }
+          } task2_1();
+        </script>

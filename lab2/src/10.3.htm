@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- В старояпонском календаре был принят 60-летний цикл, состоящий из пяти 12-летних подциклов. Подциклы обозначались названиями цвета: зеленый, красный, желтый, белый, черный. Внутри каждого подцикла годы носили названия животных: крысы, коровы, тигра, зайца, дракона, змеи, лошади, овцы, обезьяны, курицы, собаки и свиньи. Например, 1984 год (год зеленой крысы) был началом очередного цикла. Напишите сценарий, который по заданной дате определяет название года по старояпонскому календарю. -->
+
+        <form id="form10_3">
+          <table>
+            <tr>
+              <th><label for="in10_3">Дата:</label></th>
+              <td><input type="text" id="in10_3"></td>
+            </tr>
+            <tr>
+              <th><label for="out10_3">Результат:</label></th>
+              <td><input type="text" id="out10_3" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task10_3() {
+            function getYearName(year) {
+              if (year == "") return "";
+              if (!Number.isInteger) return ERR_DATA;
+              const color = [ "зеленый", "красный", "желтый", "белый", "черный" ],
+                    animal = [ "крысы",  "коровы",  "тигра",
+                               "зайца",  "дракона", "змеи",
+                               "лошади", "овцы",    "обезьяны",
+                               "курицы", "собаки",  "свиньи" ];
+              return color [(year-4 + color.length) % color.length] + " " +
+                     animal[(year-4 + animal.length) % animal.length]
+            }
+
+            $$("#form10_3 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form10_3 input"),
+                    dst = $$("#form10_3 input[readonly]");
+                dst.value = getYearName(src.value);
+              }
+            );
+          } task10_3();
+        </script>

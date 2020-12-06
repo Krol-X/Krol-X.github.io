@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- Написать сценарий графического горизонтального меню с появляющейся стрелкой над пунктом, у которого находится курсор. -->
+
+        <style type="text/css">
+          .menu4_3 {
+            display: inline-block;
+            padding: 1px;
+            margin: 5px;
+            border: 2px double black;
+            border-radius: 8px;
+          }
+          .menu4_3 > .item4_3 {
+            display: inline-block;
+            padding: 10px 20px 10px 20px;
+            position: relative;
+            min-width: 48px;
+            text-align: center;
+            border-radius: 8px;
+          }
+          .menu4_3 > .item4_3[value="selected"] {
+            background: #F8F8E8;
+          }
+          .menu4_3 > .item4_3[value="selected"]:after {
+            position: absolute; 
+            content: "\2039";
+            color: red;
+            font-size: 40px;
+            font-weight: bold;
+            right: 43px;
+            top: -20px;
+            transform: rotate(-90deg);
+          }
+        </style>
+
+        <div class="menu4_3">
+          <a class="item4_3" href="#">Первый</a>
+          <a class="item4_3" href="#">Второй</a>
+          <a class="item4_3" href="#">Третий</a>
+        </div>
+
+        <script type="text/javascript">
+          function task4_3() {
+            let on_mouse = (e) => {
+              let elem = e.srcElement;
+              if (e.type == "mouseover") {
+                elem.setAttribute('value', 'selected');
+              } else if (e.type == "mouseout") {
+                elem.removeAttribute('value');
+              }
+            }
+
+            for (let elem of $(".menu4_3 .item4_3")) {
+              elem.addEventListener("mouseover", on_mouse);
+              elem.addEventListener("mouseout", on_mouse);
+            }
+          } task4_3();
+        </script>

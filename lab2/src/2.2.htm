@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- Напишите сценарий, который для точки, заданной координатами на плоскости, определяет расстояние до начала координат (использовать событие Select). -->
+
+        <form id="form2_2">
+          <table>
+            <tr>
+              <th><label for="xy2_2">XY:</label></th>
+              <td><input type="text" id="xy2_2"></td>
+            </tr>
+            <tr>
+              <th><label for="D2_2">D:</label></th>
+              <td><input type="text" id="D2_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task2_2() {
+            let on_select = (e) => {
+              let src = $$("#form2_2 input"),
+                  dst = $$("#form2_2 input[readonly]");
+              let xy = XY_REGULAR.exec(src.value);
+              dst.value = (xy)? vector_len(
+                [0, 0], [xy[1], xy[2]]
+              ): "";
+            }
+
+            for (let elem of $('#form2_2 input')) {
+              elem.addEventListener("select", on_select);
+            }
+          } task2_2();
+        </script>

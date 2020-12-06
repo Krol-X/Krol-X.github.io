@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <script type="text/javascript" src="script.js"></script>
+<!-- Напишите сценарий, который по дате рождения человека определяет, под каким знаком зодиака родился человек. -->
+
+        <form id="form10_2">
+          <table>
+            <tr>
+              <th><label for="in10_2">Дата:</label></th>
+              <td><input type="text" id="in10_2"></td>
+            </tr>
+            <tr>
+              <th><label for="out10_2">Результат:</label></th>
+              <td><input type="text" id="out10_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
+        <script type="text/javascript">
+          function task10_2() {
+            // code in script.js
+
+            $$("#form10_2 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form10_2 input"),
+                    dst = $$("#form10_2 input[readonly]");
+                let date = new Date();
+                if (date.fromString(src.value)) {
+                  dst.value = date.getZodiac();
+                } else {
+                  dst.value = ERR_DATA;
+                }
+              }
+            );
+          } task10_2();
+        </script>
