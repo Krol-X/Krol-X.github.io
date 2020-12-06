@@ -1,10 +1,10 @@
-with open('src/header.htm', 'r') as f:
+with open('src/header.html', 'r') as f:
     header = f.read()
     hdr_size = len(header)
 
 footer = ''
 
-with open('index.htm', 'w') as r:
+with open('index.html', 'w') as r:
     r.write(header);
     r.write('\n' + '<!-- 1 -->\n\n')
     with open('src/titles.txt', 'r') as f:
@@ -15,7 +15,7 @@ with open('index.htm', 'w') as r:
                 j = 1;
                 r.write('\n' + '<!-- ' + str(i) + ' -->\n\n')
             else:
-                with open('src/%d.%d.htm' % (i, j), 'r') as ff:
+                with open('src/%d.%d.html' % (i, j), 'r') as ff:
                     data = ff.read()[hdr_size:]
                     data = '\n'.join(data.split('\n')[1:])
 
