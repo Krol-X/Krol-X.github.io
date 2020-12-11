@@ -9,7 +9,41 @@
     <script type="text/javascript" src="script.js"></script>
 <!-- Напишите программу, определяющую все делители заданного натурального числа. -->
 
+        <form id="form9_3">
+          <table>
+            <tr>
+              <th><label for="in9_3">Ввод:</label></th>
+              <td><input type="text" id="in9_3"></td>
+            </tr>
+            <tr>
+              <th><label for="out9_3">Результат:</label></th>
+              <td><input type="text" id="out9_3" readonly></td>
+            </tr>
+          </table>
+        </form>
+
         <script type="text/javascript">
           function task9_3() {
+            function divs(n) {
+              let array = [1];
+              for (let i = 2, limit = n >> 1; i <= limit; ++i) {
+                if (!(n % i)) array.push(i);
+              }
+              if (n !== 1) array.push(n);
+              return array;
+            }
+
+            $$("#form9_3 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form9_3 input"),
+                    dst = $$("#form9_3 input[readonly]");
+                if (src.value != "") {
+                  let n = Number(src.value);
+                  dst.value = Number.isInteger(n)? divs(n): ERR_DATA;
+                } else {
+                  dst.value = "";
+                }
+              }
+            );
           } task9_3();
         </script>

@@ -1,4 +1,4 @@
-with open("header.html", "r") as f:
+with open("header.html", "r", encoding="utf-8") as f:
     header = f.read()
 
 body = """
@@ -8,14 +8,14 @@ body = """
         </script>
 """
 
-with open("titles.txt", "r") as f:
+with open("titles.txt", "r", encoding="utf-8") as f:
     i, j = 1, 1
     for s in f:
         if len(s) < 2:
             i += 1;
             j = 1;
         else:
-            with open(str(i)+"."+str(j)+".html", "w") as f:
+            with open(str(i)+"."+str(j)+".html", "w", encoding="utf-8") as f:
                 f.write(header)
                 f.write("<!-- " + s[:-1] + " -->\n")
                 f.write(body % (i, j, i, j))

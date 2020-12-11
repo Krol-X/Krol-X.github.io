@@ -9,7 +9,37 @@
     <script type="text/javascript" src="script.js"></script>
 <!-- Задан одномерный массив вещественных чисел. Напишите сценарий, который определяет число положительных элементов массива. -->
 
+        <form id="form12_2">
+          <table>
+            <tr>
+              <th><label for="in12_2">Ввод:</label></th>
+              <td><input type="text" id="in12_2"></td>
+            </tr>
+            <tr>
+              <th><label for="out12_2">Результат:</label></th>
+              <td><input type="text" id="out12_2" value="0" readonly></td>
+            </tr>
+          </table>
+        </form>
+
         <script type="text/javascript">
           function task12_2() {
+            $$("#form12_2 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form12_2 input"),
+                    dst = $$("#form12_2 input[readonly]");
+                let s = src.value.trim().split(/\s+/);
+
+                let n, result = 0;
+                for (let n of s) {
+                  if (!(n = Number(n))) {
+                    dst.value = ERR_DATA;
+                    return
+                  }
+                  if (n > 0) result++;
+                }
+                dst.value = result;
+              }
+            )
           } task12_2();
         </script>

@@ -9,7 +9,20 @@
     <script type="text/javascript" src="script.js"></script>
 <!-- Напишите сценарий, в котором определяется количество "счастливых" шестизначных автобусных билетов, т.е. таких, в номерах которых сумма первых трех цифр равна сумме трех последних. -->
 
+        <form id="form9_2">
+          <table>
+            <tr>
+              <th><label for="out9_2">Результат:</label></th>
+              <td><input type="text" id="out9_2" readonly></td>
+            </tr>
+          </table>
+        </form>
+
         <script type="text/javascript">
           function task9_2() {
+            function fact(n) { return (n > 1)? n * fact(n-1): 1; }
+            function C(a, b) { return fact(b)/( fact(b-a) * fact(a) ) }
+
+            $$('#form9_2 input').value = C(3, 9) * C(3, 9);
           } task9_2();
         </script>

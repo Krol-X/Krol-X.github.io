@@ -1,21 +1,22 @@
-with open('src/header.html', 'r') as f:
+with open('src/header.html', 'r', encoding="utf-8") as f:
     header = f.read()
     hdr_size = len(header)
 
 footer = ''
 
-with open('index.html', 'w') as r:
+with open('index.html', 'w', encoding="utf-8") as r:
     r.write(header);
     r.write('\n' + '<!-- 1 -->\n\n')
     with open('src/titles.txt', 'r') as f:
         i, j = 1, 1
         for s in f:
+            print(i, j);
             if len(s) < 2:
                 i += 1;
                 j = 1;
                 r.write('\n' + '<!-- ' + str(i) + ' -->\n\n')
             else:
-                with open('src/%d.%d.html' % (i, j), 'r') as ff:
+                with open('src/%d.%d.html' % (i, j), 'r', encoding="utf-8") as ff:
                     data = ff.read()[hdr_size:]
                     data = '\n'.join(data.split('\n')[1:])
 

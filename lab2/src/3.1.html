@@ -9,9 +9,38 @@
     <script type="text/javascript" src="script.js"></script>
 <!-- Вводится последовательность из пяти чисел. Напишите сценарий, в котором определяется число максимальных элементов. -->
 
-        Не реализовано &ndash; не понятно задание (по-видимому опечатка).
+        <form id="form3_1">
+          <table>
+            <tr>
+              <th><label for="in3_1">Ввод:</label></th>
+              <td><input type="text" id="in3_1"></td>
+            </tr>
+            <tr>
+              <th><label for="out3_1">Результат:</label></th>
+              <td><input type="text" id="out3_1" value="0" readonly></td>
+            </tr>
+          </table>
+        </form>
 
         <script type="text/javascript">
           function task3_1() {
+            $$("#form3_1 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form3_1 input");
+                let dst = $$("#form3_1 input[readonly]");
+                let s = src.value.trim().split(/\s+/);
+                for (let n of s) {
+                  let n;
+                  if (!(n = Number(n))) {
+                    dst.value = ERR_DATA;
+                    return
+                  }
+                }
+                s.sort( (a, b) => { return b-a } );
+                let i = 1;
+                while (s[0] == s[i]) i++;
+                dst.value = i;
+              }
+            )
           } task3_1();
         </script>

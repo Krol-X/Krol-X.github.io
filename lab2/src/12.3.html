@@ -9,7 +9,42 @@
     <script type="text/javascript" src="script.js"></script>
 <!-- Задан одномерный массив вещественных чисел. Напишите сценарий, позволяющий найти максимальный элемент в массиве -->
 
+        <form id="form12_3">
+          <table>
+            <tr>
+              <th><label for="in12_3">Ввод:</label></th>
+              <td><input type="text" id="in12_3"></td>
+            </tr>
+            <tr>
+              <th><label for="out12_3">Результат:</label></th>
+              <td><input type="text" id="out12_3" readonly></td>
+            </tr>
+          </table>
+        </form>
+
         <script type="text/javascript">
           function task12_3() {
+            $$("#form12_3 input").addEventListener("keyup",
+              (e) => {
+                let src = $$("#form12_3 input"),
+                    dst = $$("#form12_3 input[readonly]");
+                let s = src.value.trim().split(/\s+/);
+                if (s.length == 1 && s[0] == "") {
+                  dst.value = "";
+                  return
+                }
+
+                let result = 0;
+                for (let i = 0; i < s.length; i++) {
+                  let n;
+                  if (!(n = Number(s[i]))) {
+                    dst.value = ERR_DATA;
+                    return
+                  }
+                  if (n > s[result]) result = i;
+                }
+                dst.value = result+1;
+              }
+            )
           } task12_3();
         </script>

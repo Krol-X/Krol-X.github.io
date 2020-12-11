@@ -9,7 +9,22 @@
     <script type="text/javascript" src="script.js"></script>
 <!-- Напишите сценарий, который позволяет продемонстрировать изменения размеров и положения на странице горизонтальной линии. -->
 
+        <input id="but5_1" type="button" value="Change">
+        <hr id="line5_1" color="red" size="4" width ="150px">
+
         <script type="text/javascript">
           function task5_1() {
+            $$("#but5_1").addEventListener('click', (e) => {
+              let line = $$('#line5_1');
+              if (line.size == 4) {
+                line.color = "blue";
+                line.size = 10;
+                line.style.marginLeft = "auto";
+              } else {
+                line.color = "red";
+                line.size = 4;
+                line.style.marginLeft = "0";
+              }
+            })
           } task5_1();
         </script>
